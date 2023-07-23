@@ -23,6 +23,9 @@ def query_one(id):
     stmt = select(FaceEncoding).where(FaceEncoding.id == id)
     row = db.session.execute(stmt).fetchone()
 
+    if row is None:
+        return None
+
     return {
         "id": row.FaceEncoding.id,
         "encoding": row.FaceEncoding.encoding,

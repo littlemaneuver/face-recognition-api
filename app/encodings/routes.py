@@ -47,7 +47,12 @@ def get_all():
 
 @encodings.get("/<id>")
 def get_one(id):
-    return repository.query_one(int(id, 10))
+    result = repository.query_one(int(id, 10))
+
+    if result is None:
+        raise InvalidAPIUsage("encoding does not exist", status_code=404)
+
+    return result
 
 
 @encodings.get("/stats/count")

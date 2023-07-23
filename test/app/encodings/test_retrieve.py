@@ -27,6 +27,12 @@ class TestEncodingRetrieve(ViewTestMixin):
             "encoding": self.encodings["file_two_faces"],
         }
 
+    def test_getting_non_existing_by_id(self):
+        response = self.client.get(url_for("encodings.get_one", id=4))
+
+        assert response.status_code == 404
+        assert response.json["message"] == "encoding does not exist"
+
     def test_getting_count(self):
         response = self.client.get(url_for("encodings.get_count"))
 
